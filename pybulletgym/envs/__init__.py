@@ -75,6 +75,14 @@ register(
 	)
 
 register(
+	id='AntPyBulletEnv-v1',
+	entry_point='pybulletgym.envs.roboschool.envs.locomotion.ant_env:AntBulletEnvXML',
+	max_episode_steps=1000,
+	reward_threshold=2500.0
+	)
+
+
+register(
 	id='HopperPyBulletEnv-v0',
 	entry_point='pybulletgym.envs.roboschool.envs.locomotion.hopper_env:HopperBulletEnv',
 	max_episode_steps=1000,

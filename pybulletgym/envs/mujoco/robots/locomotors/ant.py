@@ -6,9 +6,9 @@ import numpy as np
 class Ant(WalkerBase, MJCFBasedRobot):
     foot_list = ['front_left_foot', 'front_right_foot', 'left_back_foot', 'right_back_foot']
 
-    def __init__(self):
+    def __init__(self, xml="ant.xml"):
         WalkerBase.__init__(self, power=2.5)
-        MJCFBasedRobot.__init__(self, "ant.xml", "torso", action_dim=8, obs_dim=111)
+        MJCFBasedRobot.__init__(self, xml, "torso", action_dim=8, obs_dim=111)
 
     def calc_state(self):
         WalkerBase.calc_state(self)
