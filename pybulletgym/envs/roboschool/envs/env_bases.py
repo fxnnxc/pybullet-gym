@@ -18,6 +18,14 @@ class BaseBulletEnv(gym.Env):
 		'video.frames_per_second': 60
 		}
 
+	# remove Existing Robots
+	def reload_robot(self, robot):
+		self._p.removeBody(1)
+		self.robot = robot 
+		self.robot.np_random = self.np_random  # use the same np_randomizer for robot as for env
+
+
+
 	def __init__(self, robot, render=False):
 		self.scene = None
 		self.physicsClientId = -1
@@ -31,6 +39,7 @@ class BaseBulletEnv(gym.Env):
 		self._cam_pitch = -30
 		self._render_width = 320
 		self._render_height = 240
+
 
 		self.action_space = robot.action_space
 		self.observation_space = robot.observation_space
@@ -54,6 +63,7 @@ class BaseBulletEnv(gym.Env):
 
 			self.physicsClientId = self._p._client
 			self._p.configureDebugVisualizer(pybullet.COV_ENABLE_GUI,0)
+			self._p.setPhysicsEngineParameter(enableFileCaching=0)       # xml cache must be removed
 
 		if self.scene is None:
 			self.scene = self.create_single_player_scene(self._p)
