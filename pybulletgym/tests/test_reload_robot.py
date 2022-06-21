@@ -7,12 +7,13 @@ import time
 
 printf = lambda name, prev, new : print(f"{name:10s} : {prev} -> {new}")
 
-def modify_xml(dir_path, xml, save_name, seed=0):
+def modify_xml(dir_path, xml, save_name):
     with open(os.path.join(dir_path,xml)) as f :
         tree = ET.parse(f)
         root = tree.getroot()
     worldbody = root.find("worldbody").find("body")
     bodies = worldbody.findall("body")
+    
     for b in bodies:
         for bb in b.findall("body"):
             for bbb in bb.findall("body"):
@@ -37,7 +38,7 @@ import pybullet as p
 env = gym.make("AntPyBulletEnv-v0", xml="ant.xml")
 env.render()
 env.reset()
-p.resetDebugVisualizerCamera(5.5, 1.0, -35.0, (0.0,0.0,1.0))
+p.resetDebugVisualizerCamera(3.5, 1.0, -35.0, (0.0,0.0,1.0))
 
 from pybulletgym.envs.roboschool.robots.locomotors import Ant
 
@@ -47,7 +48,7 @@ timestep =0
 episode = 0
 while not done:
     state, reward, done, info = env.step(env.action_space.sample())
-    time.sleep(0.02)
+    time.sleep(0.001)
     timestep += 1
     if timestep >100:
         done = True
@@ -59,5 +60,5 @@ while not done:
         robot = Ant(name)
         env.reload_robot(robot)
         env.reset()
-        p.resetDebugVisualizerCamera(5.5, 1.0, -35.0, (0.0,0.0,1.0))
+        p.resetDebugVisualizerCamera(3.5, 1.0, -35.0, (0.0,0.0,1.0))
         episode +=1 
